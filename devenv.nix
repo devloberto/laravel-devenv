@@ -2,7 +2,7 @@
 
 {
   # https://devenv.sh/basics/
-  # env.GREET = "devenv";
+  env.laravel_project_directory = "./laravel"; # adapt this path when renaming the laravel directory
 
   # https://devenv.sh/packages/
   # packages = [ pkgs.git ];
@@ -19,8 +19,8 @@
   };
 
   # https://devenv.sh/processes/
-  processes.artisan-serve.exec = "php artisan serve";
-  processes.npm-run-dev.exec = "npm run dev";
+  processes.artisan-serve.exec = "cd $laravel_project_directory && php artisan serve";
+  processes.npm-run-dev.exec = "cd $laravel_project_directory && npm run dev";
 
   # https://devenv.sh/services/
   services = {
