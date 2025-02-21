@@ -13,12 +13,13 @@ This project serves as boilerplate code to easily setup a [devenv](https://deven
     1. either by just using this repository as template
     2. or by downloading the source code
         ```bash
+        project=<YOUR_PROJECT_NAME> # replace <YOUR_PROJECT_NAME> with your project name
         wget -O laravel-devenv.zip https://github.com/devloberto/laravel-devenv/archive/refs/heads/master.zip
         unzip laravel-devenv.zip
         rm laravel-devenv.zip
-        # replace <YOUR_PROJECT_NAME> with your project name
-        mv laravel-devenv-master <YOUR_PROJECT_NAME>
-        cd <YOUR_PROJECT_NAME>
+        mv laravel-devenv-master $project
+        cd $project
+        # direnv allow
         # optional but recommended at this point
         git init && git add . && git commit -m "initial commit"
         ```
