@@ -39,13 +39,13 @@ This project serves as boilerplate code to easily setup a [devenv](https://deven
     DB_USERNAME=develobear
     DB_PASSWORD=Test-1234
     ```
-4. run the database migrations
-    ```bash
-    php laravel/artisan migrate
-    ```
-5. start your development environment
+4. start your development environment
     ```bash
     devenv up
+    ```
+5. run the database migrations in another terminal
+    ```bash
+    php laravel/artisan migrate
     ```
 
 Now you should see the laravel page at http://localhost:8000 and the adminer login at http://localhost:8810.
