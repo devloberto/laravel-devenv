@@ -16,13 +16,16 @@
     packages.composer = pkgs.php84Packages.composer;
   };
   languages.javascript = {
-    enable = lib.mkDefault true;
-    package = lib.mkDefault pkgs.nodejs_22;
+    enable = true;
+    bun = {
+      enable = true;
+      install.enable = true;
+    };
   };
 
   # https://devenv.sh/processes/
   processes.artisan-serve.exec = "artisan serve";
-  processes.npm-run-dev.exec = "cd $laravel_project_directory && npm run dev";
+  processes.bun-run-dev.exec = "cd $laravel_project_directory && bun run dev";
 
   # https://devenv.sh/services/
   services = {
@@ -49,20 +52,22 @@
   };
 
   # https://devenv.sh/scripts/
-  scripts.artisan.exec = ''
-    php $laravel_project_directory/artisan "$@"
-  '';
+  scripts = {
+    artisan.exec = ''
+      php $laravel_project_directory/artisan "$@"
+    '';
+    scaffold-laravel.exec = ''
+      laravel new --bun # interactive
+    '';
+  };
 
   enterShell = ''
     echo
     echo 'ℹ️ php -v'
     php -v
     echo
-    echo 'ℹ️ node -v'
-    node -v
-    echo
-    echo 'ℹ️ npm -v'
-    npm -v
+    echo 'ℹ️ bun -v'
+    bun -v
     echo
     echo 'ℹ️ laravel -V'
     laravel -V

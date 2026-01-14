@@ -20,25 +20,28 @@ This project serves as boilerplate code to easily setup a [devenv](https://deven
         rm laravel-devenv.zip
         mv laravel-devenv-master $project
         cd $project
-        # direnv allow
-        # optional but recommended at this point
+        # optional but recommended
+        direnv allow .
         git init && git add . && git commit -m "initial commit"
         ```
 
-2. scaffold laravel
+2. scaffold laravel application
 
     ```bash
-    composer create-project laravel/laravel
-    cd laravel
-    npm install
-    cd ..
+    scaffold-laravel
     ```
 
-    The [laravel](https://github.com/laravel/installer) CLI is provided by `devenv.nix` as well and can be used
-    to scaffold the laravel application as an alternative to `composer create-project laravel/laravel`.
-    But mind that the `laravel_project_directory` environment variable must to be set accordingly in `devenv.nix`.
+    The `scaffold-laravel` command is provided by the `devenv.nix` and
+    utilises the [laravel CLI](https://github.com/laravel/installer).  
+    Mind the following:
 
-3. adapt the DB configuration in `./laravel/.env`:
+    - The `$laravel_project_directory` environment variable must to be set
+      accordingly to your entered project name at the top of the `devenv.nix` file.
+    - Skip the first step if the [laravel CLI](https://github.com/laravel/installer)
+      asks for upgrading because it can not upgrade itself
+      since it is installed as a nix package by [devenv](https://devenv.sh/).
+
+3. adapt the DB configuration in `./$laravel_project_directory/.env`:
 
     ```dotenv
     DB_CONNECTION=mysql
