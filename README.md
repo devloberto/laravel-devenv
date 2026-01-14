@@ -27,19 +27,21 @@ This project serves as boilerplate code to easily setup a [devenv](https://deven
 
 2. scaffold laravel application
 
+    The `$laravel_project_directory` environment variable is defined at the top of the `devenv.nix` file
+    and its value is equivalent to the directory name that contains the laravel application.
+    The default value is `laravel`.
+    Change it in the `devenv.nix` file if you want to use a different directory name.
+
     ```bash
     scaffold-laravel
     ```
 
     The `scaffold-laravel` command is provided by the `devenv.nix` and
-    utilises the [laravel CLI](https://github.com/laravel/installer).  
+    utilises the [laravel CLI](https://github.com/laravel/installer).
     Mind the following:
-
-    - The `$laravel_project_directory` environment variable must to be set
-      accordingly to your entered project name at the top of the `devenv.nix` file.
-    - Skip the first step if the [laravel CLI](https://github.com/laravel/installer)
-      asks for upgrading because it can not upgrade itself
-      since it is installed as a nix package by [devenv](https://devenv.sh/).
+    Skip the first step if the [laravel CLI](https://github.com/laravel/installer)
+    asks for upgrading because it can not upgrade itself
+    since it is installed as a nix package by [devenv](https://devenv.sh/).
 
 3. adapt the DB configuration in `./$laravel_project_directory/.env`:
 

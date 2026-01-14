@@ -54,7 +54,7 @@
       php $laravel_project_directory/artisan "$@"
     '';
     scaffold-laravel.exec = ''
-      laravel new --bun # interactive
+      laravel new --bun $laravel_project_directory # interactive
     '';
   };
 
