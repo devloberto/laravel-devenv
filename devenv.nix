@@ -10,8 +10,8 @@
   # https://devenv.sh/languages/
   languages.php = {
     enable = true;
-    package = pkgs.php83;
-    packages.composer = pkgs.php83Packages.composer;
+    package = pkgs.php84;
+    packages.composer = pkgs.php84Packages.composer;
   };
   languages.javascript = {
     enable = lib.mkDefault true;
