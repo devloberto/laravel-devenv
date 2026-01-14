@@ -5,22 +5,27 @@
   env.laravel_project_directory = "./laravel"; # adapt this path when renaming the laravel directory
 
   # https://devenv.sh/packages/
-  # packages = [ pkgs.git ];
+  packages = with pkgs; [
+    laravel
+  ];
 
   # https://devenv.sh/languages/
   languages.php = {
     enable = true;
-    package = pkgs.php83;
-    packages.composer = pkgs.php83Packages.composer;
+    package = pkgs.php84;
+    packages.composer = pkgs.php84Packages.composer;
   };
   languages.javascript = {
-    enable = lib.mkDefault true;
-    package = lib.mkDefault pkgs.nodejs_22;
+    enable = true;
+    bun = {
+      enable = true;
+      install.enable = true;
+    };
   };
 
   # https://devenv.sh/processes/
-  processes.artisan-serve.exec = "cd $laravel_project_directory && php artisan serve";
-  processes.npm-run-dev.exec = "cd $laravel_project_directory && npm run dev";
+  processes.artisan-serve.exec = "artisan serve";
+  processes.bun-run-dev.exec = "cd $laravel_project_directory && bun run dev";
 
   # https://devenv.sh/services/
   services = {
@@ -43,24 +48,33 @@
     adminer = {
       enable = true;
       listen = "127.0.0.1:8810"; # default is 127.0.0.1:8080
-      package = pkgs.adminer-pematon; # https://github.com/adminerneo/adminerneo
     };
   };
 
   # https://devenv.sh/scripts/
-  # scripts.hello.exec = ''
-  #   echo hello from $GREET
-  # '';
+  scripts = {
+    artisan.exec = ''
+      php $laravel_project_directory/artisan "$@"
+    '';
+    scaffold-laravel.exec = ''
+      laravel new --bun # interactive
+    '';
+  };
 
   enterShell = ''
-    echo '# php -v'
+    echo
+    echo 'ℹ️ php -v'
     php -v
     echo
-    echo '# node -v'
-    node -v
+    echo 'ℹ️ bun -v'
+    bun -v
     echo
-    echo '# npm -v'
-    npm -v
+    echo 'ℹ️ laravel -V'
+    laravel -V
+    echo
+    echo -e "✅ \033[95martisan\033[0m is in your PATH now 😉"
+    echo -e "you can run it via \033[95martisan <command>\033[0m from anywhere"
+    echo -e "e.g. run \033[95martisan about\033[0m to print basic info about your laravel app"
     echo
   '';
 

@@ -12,6 +12,7 @@ This project serves as boilerplate code to easily setup a [devenv](https://deven
 1. get the boilerplate code
     1. either by just using this repository as template
     2. or by downloading the source code
+
         ```bash
         project=<YOUR_PROJECT_NAME> # replace <YOUR_PROJECT_NAME> with your project name
         wget -O laravel-devenv.zip https://github.com/devloberto/laravel-devenv/archive/refs/heads/master.zip
@@ -19,18 +20,29 @@ This project serves as boilerplate code to easily setup a [devenv](https://deven
         rm laravel-devenv.zip
         mv laravel-devenv-master $project
         cd $project
-        # direnv allow
-        # optional but recommended at this point
+        # optional but recommended
+        direnv allow .
         git init && git add . && git commit -m "initial commit"
         ```
-2. scaffold laravel
+
+2. scaffold laravel application
+
     ```bash
-    composer create-project laravel/laravel
-    cd laravel
-    npm install
-    cd ..
+    scaffold-laravel
     ```
-3. adapt the DB configuration in `./laravel/.env`:
+
+    The `scaffold-laravel` command is provided by the `devenv.nix` and
+    utilises the [laravel CLI](https://github.com/laravel/installer).  
+    Mind the following:
+
+    - The `$laravel_project_directory` environment variable must to be set
+      accordingly to your entered project name at the top of the `devenv.nix` file.
+    - Skip the first step if the [laravel CLI](https://github.com/laravel/installer)
+      asks for upgrading because it can not upgrade itself
+      since it is installed as a nix package by [devenv](https://devenv.sh/).
+
+3. adapt the DB configuration in `./$laravel_project_directory/.env`:
+
     ```dotenv
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
@@ -39,13 +51,17 @@ This project serves as boilerplate code to easily setup a [devenv](https://deven
     DB_USERNAME=develobear
     DB_PASSWORD=Test-1234
     ```
+
 4. start your development environment
+
     ```bash
     devenv up
     ```
-5. run the database migrations in another terminal
+
+5. run the database migrations
+
     ```bash
-    php laravel/artisan migrate
+    artisan migrate
     ```
 
-Now you should see the laravel page at http://localhost:8000 and the adminer login at http://localhost:8810.
+Now you should see the laravel page at <http://localhost:8000> and the adminer login at <http://localhost:8810>.
