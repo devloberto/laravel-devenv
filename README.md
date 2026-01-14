@@ -12,6 +12,7 @@ This project serves as boilerplate code to easily setup a [devenv](https://deven
 1. get the boilerplate code
     1. either by just using this repository as template
     2. or by downloading the source code
+
         ```bash
         project=<YOUR_PROJECT_NAME> # replace <YOUR_PROJECT_NAME> with your project name
         wget -O laravel-devenv.zip https://github.com/devloberto/laravel-devenv/archive/refs/heads/master.zip
@@ -23,14 +24,22 @@ This project serves as boilerplate code to easily setup a [devenv](https://deven
         # optional but recommended at this point
         git init && git add . && git commit -m "initial commit"
         ```
+
 2. scaffold laravel
+
     ```bash
     composer create-project laravel/laravel
     cd laravel
     npm install
     cd ..
     ```
+
+    The [laravel](https://github.com/laravel/installer) CLI is provided by `devenv.nix` as well and can be used
+    to scaffold the laravel application as an alternative to `composer create-project laravel/laravel`.
+    But mind that the `laravel_project_directory` environment variable must to be set accordingly in `devenv.nix`.
+
 3. adapt the DB configuration in `./laravel/.env`:
+
     ```dotenv
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
@@ -39,13 +48,17 @@ This project serves as boilerplate code to easily setup a [devenv](https://deven
     DB_USERNAME=develobear
     DB_PASSWORD=Test-1234
     ```
+
 4. start your development environment
+
     ```bash
     devenv up
     ```
-5. run the database migrations in another terminal
+
+5. run the database migrations
+
     ```bash
-    php laravel/artisan migrate
+    artisan migrate
     ```
 
-Now you should see the laravel page at http://localhost:8000 and the adminer login at http://localhost:8810.
+Now you should see the laravel page at <http://localhost:8000> and the adminer login at <http://localhost:8810>.

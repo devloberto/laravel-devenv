@@ -5,7 +5,9 @@
   env.laravel_project_directory = "./laravel"; # adapt this path when renaming the laravel directory
 
   # https://devenv.sh/packages/
-  # packages = [ pkgs.git ];
+  packages = with pkgs; [
+    laravel
+  ];
 
   # https://devenv.sh/languages/
   languages.php = {
@@ -19,7 +21,7 @@
   };
 
   # https://devenv.sh/processes/
-  processes.artisan-serve.exec = "cd $laravel_project_directory && php artisan serve";
+  processes.artisan-serve.exec = "artisan serve";
   processes.npm-run-dev.exec = "cd $laravel_project_directory && npm run dev";
 
   # https://devenv.sh/services/
@@ -43,24 +45,31 @@
     adminer = {
       enable = true;
       listen = "127.0.0.1:8810"; # default is 127.0.0.1:8080
-      package = pkgs.adminer-pematon; # https://github.com/adminerneo/adminerneo
     };
   };
 
   # https://devenv.sh/scripts/
-  # scripts.hello.exec = ''
-  #   echo hello from $GREET
-  # '';
+  scripts.artisan.exec = ''
+    php $laravel_project_directory/artisan "$@"
+  '';
 
   enterShell = ''
-    echo '# php -v'
+    echo
+    echo 'ℹ️ php -v'
     php -v
     echo
-    echo '# node -v'
+    echo 'ℹ️ node -v'
     node -v
     echo
-    echo '# npm -v'
+    echo 'ℹ️ npm -v'
     npm -v
+    echo
+    echo 'ℹ️ laravel -V'
+    laravel -V
+    echo
+    echo -e "✅ \033[95martisan\033[0m is in your PATH now 😉"
+    echo -e "you can run it via \033[95martisan <command>\033[0m from anywhere"
+    echo -e "e.g. run \033[95martisan about\033[0m to print basic info about your laravel app"
     echo
   '';
 
