@@ -17,10 +17,7 @@
   };
   languages.javascript = {
     enable = true;
-    bun = {
-      enable = true;
-      install.enable = true;
-    };
+    bun.enable = true;
   };
 
   # https://devenv.sh/processes/
@@ -63,13 +60,13 @@
 
   enterShell = ''
     echo
-    echo 'ℹ️ php -v'
+    echo -e 'ℹ️ \033[94mphp\033[0m -v'
     php -v
     echo
-    echo 'ℹ️ bun -v'
+    echo -e 'ℹ️ \033[94mbun\033[0m -v'
     bun -v
     echo
-    echo 'ℹ️ laravel -V'
+    echo -e 'ℹ️ \033[94mlaravel\033[0m -V'
     laravel -V
     echo
     echo -e "✅ \033[95martisan\033[0m is in your PATH now 😉"
